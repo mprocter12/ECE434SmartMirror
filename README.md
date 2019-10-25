@@ -1,0 +1,1 @@
+This is a repository for Rose-Hulman ECE434 final project. Mark Procter and Andy Barbour will be creating a smart mirror. 
