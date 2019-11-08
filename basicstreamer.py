@@ -4,6 +4,7 @@ from ISStreamer.Streamer import Streamer
 from datetime import datetime
 import requests
 import urllib2
+import json
 
 ACCESS_KEY = "ist_Zz199NmUJzRKcJivg5cv1L91akhuC9hB"
 COORDINATES = "39.48291665,-87.32413881427742"
@@ -12,7 +13,7 @@ BUCKET_KEY = "FEAKDV6SDUBV"
 BUCKET_NAME = "Weather"
 
 def get_current_conditions():
-	api_conditions_url = "https://api.darksky.net/forecast/" + DARKSKY_API_KEY + "/" + GPS_COORDS + "?units=auto"
+	api_conditions_url = "https://api.darksky.net/forecast/" + DARK_SKY_API + "/" + COORDINATES + "?units=auto"
 	try:
 		f = urllib2.urlopen(api_conditions_url)
 	except:
