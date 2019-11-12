@@ -2,7 +2,6 @@
 
 from ISStreamer.Streamer import Streamer
 from datetime import datetime
-import requests
 import urllib2
 import json
 
@@ -22,22 +21,38 @@ def get_current_conditions():
 	f.close()
 	return json.loads(json_currently)
 
-# wjdata = requests.get('https://api.weather.gov/gridpoints/TOP/17,53').json()
-# print (wjdata['properties']['temperature']['values'][0])
+def weather_icon(ds_icon):
+	icon = {
+		"clear-day"            	: ":sunny:",
+		"clear-night"           : ":new_moon_with_face:",
+		"rain"         			: ":umbrella:",
+		"snow"              	: ":snowflake:",
+		"sleet"             	: ":sweat_drops: :snowflake:",
+		"wind"     				: ":wind_blowing_face:",
+		"fog"      				: ":fog:",
+		"cloudy"     			: ":cloud:",
+		"partly-cloudy-day"		: ":partly_sunny:",
+		"partly-cloudy-night"   : ":new_moon_with_face:",
+		"unknown"          		: ":sun_with_face:",
+	}
+	return icon.get(ds_icon,":sun_with_face:")
 
-now = datetime.now()
-current_time = now.strftime("%H:%M:%S")
+def main():
 
-# create a Streamer instance
-streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
+	# create a Streamer instance
+	streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
 
-curr_conditions = get_current_conditions()
+	curr_conditions = get_current_conditions()
 
-# send some data
-streamer.log("time", current_time)
-streamer.log("myNumber", 9)
-streamer.log("myLocation", "39.48291665,-87.32413881427742")
-streamer.log("Temperature",curr_conditions['currently']['temperature'])
+	# send some data
+	streamer.log("myLocation", "39.48291665,-87.32413881427742")
+	streamer.log("Temperature",curr_conditions['currently']['temperature'])
+	streamer.log("Current Forecast",weather_icon(curr_conditions['currently']['summary']))
+	streamer.log("Today's Feels Like",curr_conditions['currently']['apparentTemperature'])
+	streamer.log("Wind Speed",curr_conditions['currently']['windSpeed'])
 
-# flush and close the stream
-streamer.flush()
+	# flush and close the stream
+	streamer.flush()
+
+if __name__ == "__main__":
+	main()
