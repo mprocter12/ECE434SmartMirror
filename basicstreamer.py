@@ -11,6 +11,16 @@ DARK_SKY_API = "d112efc2c468c79899a1ca27d72b144c"
 BUCKET_KEY = "FEAKDV6SDUBV"
 BUCKET_NAME = "Weather"
 
+def get_fortune_cookie():
+	api_conditions_url = "http://fortunecookieapi.herokuapp.com/v1/fortunes/1"
+	try:
+		f = urllib2.urlopen(api_conditions_url)
+	except:
+		return []
+	json_currently = f.read()
+	f.close()
+	return json.loads(json_currently)
+
 def get_current_conditions():
 	api_conditions_url = "https://api.darksky.net/forecast/" + DARK_SKY_API + "/" + COORDINATES + "?units=auto"
 	try:
@@ -43,6 +53,7 @@ def main():
 	streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
 
 	curr_conditions = get_current_conditions()
+	fortunes = json.load(urllib2.urlopen('http://fortunecookieapi.herokuapp.com/v1/fortunes/1'))
 
 	date = json.dumps(json.load(urllib2.urlopen('http://worldtimeapi.org/api/timezone/America/Indianapolis'))['utc_datetime'])
 	year = date.split('-')[0].split('"')[1]
@@ -56,6 +67,7 @@ def main():
 	streamer.log("Current Forecast",weather_icon(curr_conditions['currently']['summary']))
 	streamer.log("Today's Feels Like",curr_conditions['currently']['apparentTemperature'])
 	streamer.log("Wind Speed",curr_conditions['currently']['windSpeed'])
+	streamer.log("Today's Fortune",fortunes['message'])
 
 	# flush and close the stream
 	streamer.flush()
