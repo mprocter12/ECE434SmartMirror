@@ -44,6 +44,12 @@ def main():
 
 	curr_conditions = get_current_conditions()
 
+	date = json.dumps(json.load(urllib2.urlopen('http://worldtimeapi.org/api/timezone/America/Indianapolis'))['utc_datetime'])
+	year = date.split('-')[0].split('"')[1]
+	month = date.split('-')[1]
+	day = date.split('-')[2].split('T')[0]
+	
+
 	# send some data
 	streamer.log("myLocation", "39.48291665,-87.32413881427742")
 	streamer.log("Temperature",curr_conditions['currently']['temperature'])
