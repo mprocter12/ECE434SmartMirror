@@ -50,7 +50,7 @@ def main():
 	year = date.split('-')[0].split('"')[1]
 	month = date.split('-')[1]
 	day = date.split('-')[2].split('T')[0]
-	current_date = month + "/" + day + "/" + "year"
+	current_date = month + "/" + day + "/" + year
 
 	#date_api_url = "http://numbersapi.com/" + month + "/" + day + "/date"
 	#date_fact = urllib2.urlopen(date_api_url)
