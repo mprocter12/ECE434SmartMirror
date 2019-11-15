@@ -49,8 +49,8 @@ def weather_icon(ds_icon):
 
 def main():
 
-	#url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
-	#webbrowser.open(url)
+	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
+	webbrowser.open(url)
 
 	time.sleep(120)
 	keyboard = Controller()
