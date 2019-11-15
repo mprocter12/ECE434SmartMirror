@@ -42,7 +42,7 @@ def weather_icon(ds_icon):
 
 def main():
 
-	url = 'file:///ECE434SmartMirror/dashboard.html'
+	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
 	webbrowser.open(url)
 
 	# create a Streamer instance
