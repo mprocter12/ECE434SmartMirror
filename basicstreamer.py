@@ -21,7 +21,7 @@ BUCKET_NAME = "Weather"
 UPDATE_RATE = 15
 
 # Initlalize Blynk
-blynk = BlynkLib.Blynk(BLYNK_AUTH)
+blynk = blynklib.Blynk(BLYNK_AUTH)
 
 def get_current_conditions():
 	api_conditions_url = "https://api.darksky.net/forecast/" + DARK_SKY_API + "/" + COORDINATES + "?units=auto"
