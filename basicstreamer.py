@@ -55,7 +55,7 @@ def write_virtual_pin_handler(pin, value):
 	if("{}".format(value) == "[u'0']"):
 		print('Turning Off Monitor ...')
 		subprocess.call("./turnOffMonitor.sh") # Turns off the HDMI port and is turned back on with a keypress
-	else if("{}".format(value) == "[u'1']"):
+	elif("{}".format(value) == "[u'1']"):
 		print('Turning On Monitor ...')
 		keyboard.press('a') # Random keypress to turn the monitor back on
 		keyboard.release('a')
