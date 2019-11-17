@@ -9,7 +9,7 @@ import subprocess
 import time
 import pynput
 from pynput.keyboard import Key, Controller
-#import BlynkLib
+import BlynkLib
 
 
 ACCESS_KEY = "ist_Zz199NmUJzRKcJivg5cv1L91akhuC9hB"
@@ -18,7 +18,7 @@ DARK_SKY_API = "d112efc2c468c79899a1ca27d72b144c"
 BLYNK_AUTH = "TubKCRtgU0RJ8JsTTS4fm4mEuT55kR80"
 BUCKET_KEY = "FEAKDV6SDUBV"
 BUCKET_NAME = "Weather"
-UPDATE_RATE = 5
+UPDATE_RATE = 15
 
 def get_current_conditions():
 	api_conditions_url = "https://api.darksky.net/forecast/" + DARK_SKY_API + "/" + COORDINATES + "?units=auto"
@@ -45,21 +45,34 @@ def weather_icon(ds_icon):
 		"unknown"          		: ":sun_with_face:",
 	}
 	return icon.get(ds_icon,":sun_with_face:")
+
+# Virtual Pin Handler
+@blynk.on("V0")
+def v0_write_handler(value):
+	if(value[0] == 0):
+		subprocess.call("turnOffMonitor.sh") #Turns off the HDMI port and is turned back on with a keypress
+	else:
+		keyboard.press('a') # Random keypress to turn the monitor back on
+		keyboard.release('a')
 	
 
 def main():
 
 	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
 	webbrowser.open(url)
-
 	time.sleep(120)
-	keyboard = Controller()
+
+	keyboard = Controller() # Using simulated Keypresses, we can make the chrome window fullscreen
 	keyboard.press(Key.f11)
 	keyboard.release(Key.f11)
+	time.sleep(30)
 
-
-
+	# Initlalize Blynk
+	blynk = BlynkLib.Blynk(BLYNK_AUTH)
+	
 	while True:
+		blynk.run()
+
 		# create a Streamer instance
 		streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
 
