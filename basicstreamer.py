@@ -15,7 +15,7 @@ import blynklib
 ACCESS_KEY = "ist_Zz199NmUJzRKcJivg5cv1L91akhuC9hB"
 COORDINATES = "39.48291665,-87.32413881427742"
 DARK_SKY_API = "d112efc2c468c79899a1ca27d72b144c"
-BLYNK_AUTH = "TubKCRtgU0RJ8JsTTS4fm4mEuT55kR80"
+BLYNK_AUTH = "0SBmcHeg3zIyJEr08uRW1DouR0HC2W2P"
 BUCKET_KEY = "FEAKDV6SDUBV"
 BUCKET_NAME = "Weather"
 UPDATE_RATE = 15
@@ -61,7 +61,6 @@ def v0_write_handler(value):
 	
 
 def main():
-
 	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
 	webbrowser.open(url)
 	time.sleep(120)
