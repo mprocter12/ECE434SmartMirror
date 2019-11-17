@@ -54,10 +54,12 @@ def weather_icon(ds_icon):
 def v0_write_handler(value):
 	print("In event handler")
 	if(value[0] == 0):
-		subprocess.call("./turnOffMonitor.sh") #Turns off the HDMI port and is turned back on with a keypress
+		subprocess.call("./turnOffMonitor.sh") # Turns off the HDMI port and is turned back on with a keypress
+		print('Turning Off Monitor ...')
 	else:
 		keyboard.press('a') # Random keypress to turn the monitor back on
 		keyboard.release('a')
+		print('Turning On Monitor ...')
 	
 
 def main():
@@ -70,9 +72,11 @@ def main():
 	keyboard.release(Key.f11)
 	time.sleep(30)
 	
+	print('Running Blynk ...')
 	while True:
 		blynk.run()
 
+	while True:
 		# create a Streamer instance
 		streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
 
