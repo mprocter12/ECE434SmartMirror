@@ -50,8 +50,8 @@ def weather_icon(ds_icon):
 	return icon.get(ds_icon,":sun_with_face:")
 
 # Virtual Pin Handler
-@blynk.handle_event('write V0')
-def v0_write_handler(value):
+@blynk.handle_event('read V0')
+def read_virtual_pin_handler(value):
 	print("In event handler")
 	if(value[0] == 0):
 		subprocess.call("./turnOffMonitor.sh") # Turns off the HDMI port and is turned back on with a keypress
@@ -64,13 +64,13 @@ def v0_write_handler(value):
 
 def main():
 	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
-	webbrowser.open(url)
-	time.sleep(120)
+	#webbrowser.open(url)
+	#time.sleep(120)
 
 	keyboard = Controller() # Using simulated Keypresses, we can make the chrome window fullscreen
-	keyboard.press(Key.f11)
-	keyboard.release(Key.f11)
-	time.sleep(30)
+	#keyboard.press(Key.f11)
+	#keyboard.release(Key.f11)
+	#time.sleep(30)
 	
 	print('Running Blynk ...')
 	while True:
