@@ -52,7 +52,8 @@ def weather_icon(ds_icon):
 # Virtual Pin Handler
 @blynk.handle_event('write V0')
 def write_virtual_pin_handler(pin, value):
-	print("[WRITE_VIRTUAL_PIN_EVENT] Pin: V{} Value: '{}'".format(pin, value))
+	print(value[0])
+	print(value[1])
 	if(value == 0):
 		subprocess.call("./turnOffMonitor.sh") # Turns off the HDMI port and is turned back on with a keypress
 		print('Turning Off Monitor ...')
