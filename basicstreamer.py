@@ -20,6 +20,9 @@ BUCKET_KEY = "FEAKDV6SDUBV"
 BUCKET_NAME = "Weather"
 UPDATE_RATE = 15
 
+# Initlalize Blynk
+blynk = BlynkLib.Blynk(BLYNK_AUTH)
+
 def get_current_conditions():
 	api_conditions_url = "https://api.darksky.net/forecast/" + DARK_SKY_API + "/" + COORDINATES + "?units=auto"
 	try:
@@ -66,9 +69,6 @@ def main():
 	keyboard.press(Key.f11)
 	keyboard.release(Key.f11)
 	time.sleep(30)
-
-	# Initlalize Blynk
-	blynk = BlynkLib.Blynk(BLYNK_AUTH)
 	
 	while True:
 		blynk.run()
