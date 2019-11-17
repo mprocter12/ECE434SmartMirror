@@ -50,7 +50,7 @@ def weather_icon(ds_icon):
 @blynk.on("V0")
 def v0_write_handler(value):
 	if(value[0] == 0):
-		subprocess.call("turnOffMonitor.sh") #Turns off the HDMI port and is turned back on with a keypress
+		subprocess.call("./turnOffMonitor.sh") #Turns off the HDMI port and is turned back on with a keypress
 	else:
 		keyboard.press('a') # Random keypress to turn the monitor back on
 		keyboard.release('a')
