@@ -54,12 +54,12 @@ def weather_icon(ds_icon):
 def write_virtual_pin_handler(pin, value):
 	print("{}".format(value))
 	if("{}".format(value) == "[u'0']"):
-		subprocess.call("./turnOffMonitor.sh") # Turns off the HDMI port and is turned back on with a keypress
 		print('Turning Off Monitor ...')
+		subprocess.call("./turnOffMonitor.sh") # Turns off the HDMI port and is turned back on with a keypress
 	else:
+		print('Turning On Monitor ...')
 		keyboard.press('a') # Random keypress to turn the monitor back on
 		keyboard.release('a')
-		print('Turning On Monitor ...')
 	
 
 def main():
