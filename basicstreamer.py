@@ -9,7 +9,7 @@ import subprocess
 import time
 import pynput
 from pynput.keyboard import Key, Controller
-import BlynkLib
+import blynklib
 
 
 ACCESS_KEY = "ist_Zz199NmUJzRKcJivg5cv1L91akhuC9hB"
