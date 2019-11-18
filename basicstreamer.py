@@ -79,7 +79,7 @@ def stream_data():
 def test():
 	print('performing test ...')
 
-	newer_timer = threading.Timer(15.0, stream_data) 
+	newer_timer = threading.Timer(5.0, test) 
 	newer_timer.start()
 
 # Virtual Pin Handler
@@ -103,7 +103,7 @@ def main():
 	#keyboard.release(Key.f11)
 	#time.sleep(15)
 
-	timer = threading.Timer(15.0, test) 
+	timer = threading.Timer(5.0, test) 
 	timer.start()	
 
 	while True:
