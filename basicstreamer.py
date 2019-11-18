@@ -68,13 +68,10 @@ def main():
 	keyboard = Controller() # Using simulated Keypresses, we can make the chrome window fullscreen
 	keyboard.press(Key.f11)
 	keyboard.release(Key.f11)
-	time.sleep(30)
-	
-	print('Running Blynk ...')
-	while True:
-		blynk.run()
+	time.sleep(30)		
 
 	while True:
+		blynk.run()
 		# create a Streamer instance
 		streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
 
