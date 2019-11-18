@@ -57,8 +57,7 @@ def write_virtual_pin_handler(pin, value):
 		subprocess.call('xset dpms force off', shell=True) # Turns off the HDMI port and is turned back on with a keypress
 	elif("{}".format(value) == "[u'1']"):
 		print('Turning On Monitor ...')
-		keyboard.press('a') # Random keypress to turn the monitor back on
-		keyboard.release('a')
+		subprocess.call('xset dpms force on', shell=True) # Turns on the HDMI port
 	
 
 def main():
