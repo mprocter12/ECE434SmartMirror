@@ -19,7 +19,7 @@ DARK_SKY_API = "d112efc2c468c79899a1ca27d72b144c"
 BLYNK_AUTH = "TubKCRtgU0RJ8JsTTS4fm4mEuT55kR80"
 BUCKET_KEY = "FEAKDV6SDUBV"
 BUCKET_NAME = "Weather"
-UPDATE_RATE = 15
+UPDATE_RATE = 15.0
 
 # Initlalize Blynk
 blynk = blynklib.Blynk(BLYNK_AUTH)
@@ -51,6 +51,8 @@ def weather_icon(ds_icon):
 	return icon.get(ds_icon,":sun_with_face:")
 
 def stream_data():
+	print('Updating Widgets ...')
+
 	# create a Streamer instance
 	streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
 
@@ -73,14 +75,8 @@ def stream_data():
 	streamer.log("Today's Fortune",fortune[0]['fortune']['message'])
 	streamer.log("Today's Date",current_date)
 
-	new_timer = threading.Timer(15.0, stream_data) 
+	new_timer = threading.Timer(UPDATE_RATE, stream_data) 
 	new_timer.start()
-
-def test():
-	print('performing test ...')
-
-	newer_timer = threading.Timer(5.0, test) 
-	newer_timer.start()
 
 # Virtual Pin Handler
 @blynk.handle_event('write V0')
@@ -103,7 +99,7 @@ def main():
 	keyboard.release(Key.f11)
 	time.sleep(15)
 
-	timer = threading.Timer(15.0, stream_data) 
+	timer = threading.Timer(UPDATE_RATE, stream_data)
 	timer.start()	
 
 	while True:
