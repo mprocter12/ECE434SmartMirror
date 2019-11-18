@@ -68,7 +68,7 @@ def main():
 	keyboard = Controller() # Using simulated Keypresses, we can make the chrome window fullscreen
 	keyboard.press(Key.f11)
 	keyboard.release(Key.f11)
-	time.sleep(30)		
+	time.sleep(15)		
 
 	while True:
 		blynk.run()
