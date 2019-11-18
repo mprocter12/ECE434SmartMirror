@@ -54,7 +54,7 @@ def weather_icon(ds_icon):
 def write_virtual_pin_handler(pin, value):
 	if("{}".format(value) == "[u'0']"):
 		print('Turning Off Monitor ...')
-		subprocess.call("./turnOffMonitor.sh") # Turns off the HDMI port and is turned back on with a keypress
+		subprocess.call('xset dpms force off', shell=True) # Turns off the HDMI port and is turned back on with a keypress
 	elif("{}".format(value) == "[u'1']"):
 		print('Turning On Monitor ...')
 		keyboard.press('a') # Random keypress to turn the monitor back on
@@ -63,13 +63,13 @@ def write_virtual_pin_handler(pin, value):
 
 def main():
 	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
-	#webbrowser.open(url)
-	#time.sleep(120)
+	webbrowser.open(url)
+	time.sleep(120)
 
 	keyboard = Controller() # Using simulated Keypresses, we can make the chrome window fullscreen
-	#keyboard.press(Key.f11)
-	#keyboard.release(Key.f11)
-	#time.sleep(30)
+	keyboard.press(Key.f11)
+	keyboard.release(Key.f11)
+	time.sleep(30)
 	
 	print('Running Blynk ...')
 	while True:
