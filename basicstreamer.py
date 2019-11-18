@@ -10,6 +10,7 @@ import time
 import pynput
 from pynput.keyboard import Key, Controller
 import blynklib
+import threading
 
 
 ACCESS_KEY = "ist_Zz199NmUJzRKcJivg5cv1L91akhuC9hB"
@@ -49,6 +50,32 @@ def weather_icon(ds_icon):
 	}
 	return icon.get(ds_icon,":sun_with_face:")
 
+def stream_data():
+	# create a Streamer instance
+	streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
+
+	curr_conditions = get_current_conditions()
+
+	fortune = json.load(urllib2.urlopen('http://fortunecookieapi.herokuapp.com/v1/cookie'))
+
+	date = json.dumps(json.load(urllib2.urlopen('http://worldtimeapi.org/api/timezone/America/Indianapolis'))['utc_datetime'])
+	year = date.split('-')[0].split('"')[1]
+	month = date.split('-')[1]
+	day = date.split('-')[2].split('T')[0]
+	current_date = month + "/" + day + "/" + year
+
+	# send some data
+	streamer.log("myLocation", "39.48291665,-87.32413881427742")
+	streamer.log("Temperature",curr_conditions['currently']['temperature'])
+	streamer.log("Current Forecast",weather_icon(curr_conditions['currently']['icon']))
+	streamer.log("Today's Feels Like",curr_conditions['currently']['apparentTemperature'])
+	streamer.log("Wind Speed",curr_conditions['currently']['windSpeed'])
+	streamer.log("Today's Fortune",fortune[0]['fortune']['message'])
+	streamer.log("Today's Date",current_date)
+
+	new_timer = threading.Timer(15.0, stream_data) 
+	new_timer.start()
+
 # Virtual Pin Handler
 @blynk.handle_event('write V0')
 def write_virtual_pin_handler(pin, value):
@@ -72,29 +99,9 @@ def main():
 
 	while True:
 		blynk.run()
-		# create a Streamer instance
-		streamer = Streamer(bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY)
 
-		curr_conditions = get_current_conditions()
-
-		fortune = json.load(urllib2.urlopen('http://fortunecookieapi.herokuapp.com/v1/cookie'))
-
-		date = json.dumps(json.load(urllib2.urlopen('http://worldtimeapi.org/api/timezone/America/Indianapolis'))['utc_datetime'])
-		year = date.split('-')[0].split('"')[1]
-		month = date.split('-')[1]
-		day = date.split('-')[2].split('T')[0]
-		current_date = month + "/" + day + "/" + year
-
-		# send some data
-		streamer.log("myLocation", "39.48291665,-87.32413881427742")
-		streamer.log("Temperature",curr_conditions['currently']['temperature'])
-		streamer.log("Current Forecast",weather_icon(curr_conditions['currently']['icon']))
-		streamer.log("Today's Feels Like",curr_conditions['currently']['apparentTemperature'])
-		streamer.log("Wind Speed",curr_conditions['currently']['windSpeed'])
-		streamer.log("Today's Fortune",fortune[0]['fortune']['message'])
-		streamer.log("Today's Date",current_date)
-
-		time.sleep(UPDATE_RATE)
+		timer = threading.Timer(15.0, stream_data) 
+		timer.start()
 
 	# flush and close the stream
 	streamer.flush()
