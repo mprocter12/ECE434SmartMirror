@@ -76,6 +76,12 @@ def stream_data():
 	new_timer = threading.Timer(15.0, stream_data) 
 	new_timer.start()
 
+def test():
+	print('performing test ...')
+
+	newer_timer = threading.Timer(15.0, stream_data) 
+	newer_timer.start()
+
 # Virtual Pin Handler
 @blynk.handle_event('write V0')
 def write_virtual_pin_handler(pin, value):
@@ -89,15 +95,15 @@ def write_virtual_pin_handler(pin, value):
 
 def main():
 	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
-	webbrowser.open(url)
-	time.sleep(120)
+	#webbrowser.open(url)
+	#time.sleep(120)
 
 	keyboard = Controller() # Using simulated Keypresses, we can make the chrome window fullscreen
-	keyboard.press(Key.f11)
-	keyboard.release(Key.f11)
-	time.sleep(15)
+	#keyboard.press(Key.f11)
+	#keyboard.release(Key.f11)
+	#time.sleep(15)
 
-	timer = threading.Timer(15.0, stream_data) 
+	timer = threading.Timer(15.0, test) 
 	timer.start()	
 
 	while True:
