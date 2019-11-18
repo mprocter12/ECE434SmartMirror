@@ -95,15 +95,15 @@ def write_virtual_pin_handler(pin, value):
 
 def main():
 	url = 'file:///home/debian/ECE434SmartMirror/dashboard.html'
-	#webbrowser.open(url)
-	#time.sleep(120)
+	webbrowser.open(url)
+	time.sleep(120)
 
 	keyboard = Controller() # Using simulated Keypresses, we can make the chrome window fullscreen
-	#keyboard.press(Key.f11)
-	#keyboard.release(Key.f11)
-	#time.sleep(15)
+	keyboard.press(Key.f11)
+	keyboard.release(Key.f11)
+	time.sleep(15)
 
-	timer = threading.Timer(5.0, test) 
+	timer = threading.Timer(15.0, stream_data) 
 	timer.start()	
 
 	while True:
